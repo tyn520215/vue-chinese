@@ -12,10 +12,7 @@
       <template v-for="item in items">
         <mu-list-item :title="item.title" :to="'/detail/'+item.id">
           <mu-avatar :src="item.author.avatar_url" slot="leftAvatar"/>
-          <!--<span slot="describe">-->
-        <!--<span style="color: rgba(0, 0, 0, .87)">看电影啊</span> <br/>-->
-        <!--我们去看电影，最近有部烂片上映，又有吐槽的了-->
-        <!--</span>-->
+
         </mu-list-item>
         <mu-divider/>
       </template>
@@ -56,9 +53,9 @@
           this.page += 1;
           let url = this.url+"?tab="+this.activeTab+"&page="+this.page ;
             setTimeout(() => {
-              getUtils(url).then((res)=>{
-                if(res.data.data.length !=0){
-                  newItems=res.data.data;
+              getUtils(url).then((data)=>{
+                if(data.data.length !=0){
+                  newItems=data.data;
                   this.items.push(...newItems);
                   this.add = false;
                 }else{
@@ -73,11 +70,10 @@
         },
         getData(url){
           this.loading = true;
-          let that = this;
-          getUtils(url).then(function (res) {
-            if (res.state = 200) {
-              that.items = res.data.data;
-              that.loading = false;
+          getUtils(url).then((data)=>{
+            if (data.state = 200){
+              this.items = data.data;
+              this.loading = false;
             }
           })
         },

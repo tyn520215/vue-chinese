@@ -1,6 +1,6 @@
 <template>
   <div class="warpp">
-    <headerTop></headerTop>
+    <headerTop titleName="Vue中文社区"></headerTop>
       <home></home>
     <bottomNav bottom="firstPage"></bottomNav>
   </div>

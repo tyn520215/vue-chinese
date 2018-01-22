@@ -2,30 +2,33 @@
   <div>
     <mu-text-field label="accessToken" hintText="请输入accessToken" v-model="accessToken" type="password" labelFloat/>
     <mu-raised-button label="登录" class="demo-raised-button" @click="login" primary/>
+    <a href="https://www.vue-js.com" style="color:rgb(126,87,194)">accessToken通过登录vue-js中文社区注册获取</a>
     <bottomNav bottom="login"></bottomNav>
-    <mu-popup position="top" :overlay="true" class="demo-popup-top" :open="topPopup">
-      <mu-appbar title="accessToken错误！">
-      </mu-appbar>
-    </mu-popup>
+    <dia :content="erroTip" :popupValue="ishow"></dia>
+    <!--<mu-popup position="top" :overlay="true" class="demo-popup-top" :open="topPopup">-->
+      <!--<mu-appbar title="accessToken错误！">-->
+      <!--</mu-appbar>-->
+    <!--</mu-popup>-->
   </div>
 </template>
 
 <script>
   import bottomNav from '../components/BottomNavigation.vue'
   import {postUtils} from '../utils/utils'
-
+  import dia from '../components/dialog.vue'
   export default {
         data () {
             return{
               accessToken:'',
-              topPopup: false,
+              ishow: false,
+              erroTip:'accessToken错误!',
             }
         },
       created(){
         this.checkLogin()
       },
     components:{
-      bottomNav,
+      bottomNav,dia
     },
       mounted () {
 
@@ -33,15 +36,13 @@
       methods: {
         login(){
           let url ='https://www.vue-js.com/api/v1/accesstoken?accesstoken='+this.accessToken;
-          let that = this;
-          postUtils(url).then((res)=>{
-            let name = res.data.loginname;
+          postUtils(url).then((data)=>{
+            let name = data.loginname;
             sessionStorage.setItem('name',name);
-            sessionStorage.setItem('accessToken',that.accessToken);
-
+            sessionStorage.setItem('accessToken',this.accessToken);
             this.$router.push('/usercenter/'+name)
           }).catch((e)=>{
-            this.topPopup=true;
+            this.ishow=true;
           })
         },
         checkLogin(){
@@ -50,15 +51,7 @@
         }
       },
     watch: {
-      topPopup (val) {
-        if (val) {
-          setTimeout(() => {
-            this.topPopup = false
-          }, 2000)
-        }
-      },
       "$route" : 'checkLogin'
-
     }
     }
 </script>

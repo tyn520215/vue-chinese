@@ -83,12 +83,10 @@
           repaly(){
             let accessToken = sessionStorage.getItem('accessToken');
             if(accessToken){
-              let self = this
               let url ='https://www.vue-js.com/api/v1/topic/'+this.id+'/replies?accesstoken='+accessToken+'&content ='+this.opinion;
-              postUtils(url).then((res)=>{
-                if(res.data.success){
-                  debugger
-                  self.initData()
+              postUtils(url).then((data)=>{
+                if(data.success){
+                  this.initData()
                 }
               }).catch((e)=>{
 
@@ -99,19 +97,18 @@
           },
           thumb_up(val,event){
             let accessToken = sessionStorage.getItem('accessToken');
-            let self = this
             if(accessToken){
               let url ='https://www.vue-js.com/api/v1/reply/'+val+'/ups?accesstoken='+accessToken;
-              postUtils(url).then((res)=>{
-                if(res.data.success){
+              postUtils(url).then((data)=>{
+                if(data.success){
                   let e = event.target;
-                  if(res.data.action =='up'){
+                  if(data.action =='up'){
                     e.parentElement.style.color ='rgb(252,192,21)'
                   }else{
                     e.parentElement.style.color =''
                   }
                 }
-                self.initData()
+                this.initData()
               }).catch((e)=>{})
             }else{
               this.$router.push('/login')
@@ -121,14 +118,14 @@
           initData(){
             let id=this.$route.params.id;
             let url = 'https://www.vue-js.com/api/v1/topic/'+id;
-            getUtils(url).then((res)=>{
-              if(res.data.data){
-                this.data = res.data.data;
-                this.replies = res.data.data.replies;
-                this.title = res.data.data.title;
-                this.content = res.data.data.content;
-                this.visit_count = res.data.data.visit_count;
-                this.id= res.data.data.id;
+            getUtils(url).then((data)=>{
+              if(data.data){
+                this.data = data.data;
+                this.replies = data.data.replies;
+                this.title = data.data.title;
+                this.content = data.data.content;
+                this.visit_count = data.data.visit_count;
+                this.id=data.data.id;
               }else{
               }
             });

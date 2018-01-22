@@ -11,18 +11,28 @@
     export default {
         data() {
             return {
-              contents:this.content
+              contents:this.content,
+              topPopup:this.popupValue
             }
         },
         created() {
         },
-      props:['content'],
+      props:['content','popupValue'],
       components: {},
         mounted() {
 
         },
         methods: {},
-        watch: {}
+        watch: {
+          topPopup (val) {
+            if (val) {
+              setTimeout(() => {
+                this.topPopup = false
+              }, 2000)
+            }
+          },
+
+        }
     }
 </script>
 

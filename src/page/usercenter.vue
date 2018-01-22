@@ -1,7 +1,6 @@
 <template>
     <div class="usercenter">
-      <mu-appbar title="个人中心">
-      </mu-appbar>
+      <headerTop title="个人中心"></headerTop>
       <mu-list-item :title="loginname" class="userInfo">
         <mu-avatar :src="avatar_url" slot="leftAvatar" :size="40"/>
       </mu-list-item>
@@ -51,7 +50,7 @@
 <script>
   import {getUtils} from '../utils/utils'
   import bottomNav from '../components/BottomNavigation.vue'
-
+  import headerTop from '../components/headerTop.vue'
   export default {
         name: 'App',
         data () {
@@ -65,9 +64,9 @@
           let name =this.$route.params.username;
           let url = 'https://www.vue-js.com/api/v1/user/'+name;
           getUtils(url).then((res)=>{
-            this.loginname = res.data.data.loginname;
-            this.avatar_url = res.data.data.avatar_url;
-            this.recent_replies = res.data.data.recent_replies;
+            this.loginname = res.data.loginname;
+            this.avatar_url = res.data.avatar_url;
+            this.recent_replies = res.data.recent_replies;
           })
 
         },
@@ -75,11 +74,12 @@
 
         },
       components:{
-        bottomNav,
+        bottomNav,headerTop
       },
         methods: {
           loginOut(){
             sessionStorage.removeItem('name');
+            sessionStorage.removeItem('accessToken');
             this.$router.push('/home')
           }
         }
@@ -111,7 +111,7 @@ s
     width: 100%;
   }
   .userInfo{
-    margin-top: 0.9rem;
+    margin-top: 3.55rem;
     border-top: 1px solid #e3e3e3;
 
   }
