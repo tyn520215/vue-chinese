@@ -12,8 +12,8 @@ vue2 + vue-cli + vue-router + ES6 + muse-ui +axios
 
 # 效果演示
 
-[查看demo请戳这里](http://gakki318.com)（请用chrome手机模式预览）
+[查看demo请戳这里](http://www.gakkisama.cn)（请用chrome手机模式预览）
 
 ### 移动端扫描下方二维码
 
-<img src="http://gakki318.com/vuelogo.png" width="250" height="250"/>
+<img src="http://gakkisama.com/vuelogo.png" width="250" height="250"/>
